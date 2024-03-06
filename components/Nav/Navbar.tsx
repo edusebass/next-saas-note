@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
 import { FaGithub } from "react-icons/fa";
+import LoginForm from './LoginForm';
 
 export default function Navbar() {
   return (
@@ -10,10 +11,7 @@ export default function Navbar() {
             <Link href="/" className='text-2xl font-bold'>Daily Blog</Link>
             <div className='h-1 w-0 group-hover:w-full transition-all bg-green-500'></div>
         </div>
-        <Button variant="outline" className='flex items-center gap-2'>
-          <FaGithub />
-          Login
-        </Button>
+        <LoginForm />
     </nav>
   )
 }
