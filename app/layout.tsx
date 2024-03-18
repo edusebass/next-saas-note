@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/Nav/Navbar";
 import Sessionprovider from "@/components/session-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,10 +27,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <main className="max-w-7xl mx-auto lg:py-10 space-y-10 p-5 lg:p-0">
+            <main className="max-w-7xl mx-10 lg:py-10 space-y-10 p-5 lg:p-0 ">
               <Navbar />
               {children}  
             </main>
+            <Toaster/>
           </ThemeProvider>
           <Sessionprovider/>
       </body>

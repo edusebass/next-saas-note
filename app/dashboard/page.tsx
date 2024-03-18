@@ -9,10 +9,11 @@ export default function Dashboard() {
         <div className='space-y-5'>
             <div className='flex items-center justify-between'>
                 <h1 className='text-2xl font-bold'>Blogs</h1>
-                <Link href="/dashboard/blog/create"></Link>
-                <Button variant="outline">
-                    Create <PlusIcon/>
-                </Button>
+                <Link href="/dashboard/blog/create">
+                    <Button variant="outline">
+                        Create <PlusIcon/>
+                    </Button>
+                </Link>
             </div>
             <BlogTable/>
         </div>
