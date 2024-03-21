@@ -21,6 +21,7 @@ import { Switch } from "@/components/ui/switch"
 import { BsCopy, BsSave} from "react-icons/bs"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 const FormSchema = z.object({
 	title: z.string().min(2, {
@@ -174,7 +175,7 @@ export default function BlogForm() {
 						<FormItem>
 							<FormControl>
                                 <div className={cn("p-2 w-full flex break-words gap-2", isPreview ? "divide-x-0" : "divide-x")}>
-                                    <Input placeholder="title" {...field} 
+                                    <Input placeholder="url" {...field} 
                                         className={cn("border-none text-lg font-medium leading-relaxed", 
                                         isPreview 
                                             ? "w-0 p-0" 
@@ -184,12 +185,26 @@ export default function BlogForm() {
                                         ? "mx-auto w-full lg:w-4/5"
                                         : "w-1/2 lg:block hidden")}
                                     >
-                                        <h1 className="text-3xl font-medium">{form.getValues().title}</h1>
+                                        {!isPreview ? 
+										<>Clik o preview iamge</>
+										: 
+										<>
+											<div className="relative h-80 mt-10 border rounded-md">
+												<Image src={form.getValues().image_url} alt="preview" 
+													fill className="object-cover object-center rounded-md"
+												/>
+											</div>
+										</>}
                                     </div>
                                 </div>
 							</FormControl>
-							{form.getFieldState("title").invalid &&
-                                form.getValues().title && <FormMessage/>}
+							{form.getFieldState("image_url").invalid &&
+                                form.getValues().image_url && 
+								<div className="p-2">
+									<FormMessage/>
+								</div>
+								
+								}
 							<FormMessage />
 						</FormItem>
 					)}
