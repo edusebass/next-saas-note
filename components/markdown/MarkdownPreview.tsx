@@ -31,6 +31,7 @@ export default function MarkdownPreview({
                     const match = /language-(\w+)/.exec(className || "")
                     if(match?.length){
                         let Icon = BsTerminal
+                        const id = (Math.floor(Math.random() * 100) + 1).toString()
                         return (
                             <div className='bg-gradient-dark text-gray-300 border rounded-md'>
                                 <div className='px-5 py-2 border-b flex items-center justify-between'>
@@ -43,10 +44,10 @@ export default function MarkdownPreview({
                                             }
                                         </span>
                                     </div>
+                                    <CopyButton id={id} />
                                 </div>
-                                <CopyButton />
                                 <div className='overflow-x-auto w-full'>
-                                    <div className='p-5'>
+                                    <div className='p-5' id={id} >
                                         {children}
                                     </div>
                                 </div>

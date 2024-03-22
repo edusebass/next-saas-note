@@ -38,6 +38,17 @@ const FormSchema = z.object({
 	is_Published: z.boolean(),
 	is_premium: z.boolean(),
 	
+}).refine((data) => {
+	const image_url = data.image_url
+	try {
+		const url = new URL(image_url)
+		return url.hostname === "cdn.pixabay.com"
+	} catch {
+		return false
+	}
+}, {
+	message: "Only we are supoort only the image wrom pixabay",
+	path: ["image_url"]
 })
 
 export default function BlogForm() {
@@ -78,7 +89,7 @@ export default function BlogForm() {
 							role="button" 
 							tabIndex={0} 
 							className="flex items-center gap-1 border bg-zinc-700 p-2 rounded-md hover:ring-2 hover:ring-zinc-400"
-							onClick={() => setPreview(!isPreview)}
+							onClick={() => setPreview(!isPreview && !form.getFieldState("image_url").invalid)}
 						>
 							{isPreview ? (
 								<>
@@ -222,7 +233,7 @@ export default function BlogForm() {
 									isPreview ? "divide-x-0" : "divide-x h-70vh"
 									)}
 								>
-                                    <Textarea placeholder="url" {...field} 
+                                    <Textarea placeholder="Content..." {...field} 
                                         className={
 											cn("border-none text-lg font-medium leading-relaxed resize-none h-full", 
                                         isPreview 
