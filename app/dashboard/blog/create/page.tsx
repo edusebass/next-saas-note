@@ -22,6 +22,8 @@ import { BsCopy, BsSave} from "react-icons/bs"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
+import { Textarea } from "@/components/ui/textarea"
+import MarkdownPreview from "@/components/markdown/MarkdownPreview"
 
 const FormSchema = z.object({
 	title: z.string().min(2, {
@@ -200,6 +202,44 @@ export default function BlogForm() {
 							</FormControl>
 							{form.getFieldState("image_url").invalid &&
                                 form.getValues().image_url && 
+								<div className="p-2">
+									<FormMessage/>
+								</div>
+								
+								}
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				 <FormField
+					control={form.control}
+					name="content"
+					render={({ field }) => (
+						<FormItem>
+							<FormControl>
+                                <div className={cn(
+									"p-2 w-full flex break-words gap-2", 
+									isPreview ? "divide-x-0" : "divide-x h-70vh"
+									)}
+								>
+                                    <Textarea placeholder="url" {...field} 
+                                        className={
+											cn("border-none text-lg font-medium leading-relaxed resize-none h-full", 
+                                        isPreview 
+                                            ? "w-0 p-0" 
+                                            : "w-full lg:w-1/2")}
+                                    />
+                                     <div className={cn("lg:px-10", isPreview 
+                                        ? "mx-auto w-full lg:w-4/5"
+                                        : "w-1/2 lg:block hidden")}
+                                    >
+                                        <MarkdownPreview content={form.getValues().content} />
+										
+                                    </div>
+                                </div>
+							</FormControl>
+							{form.getFieldState("content").invalid &&
+                                form.getValues().content && 
 								<div className="p-2">
 									<FormMessage/>
 								</div>
