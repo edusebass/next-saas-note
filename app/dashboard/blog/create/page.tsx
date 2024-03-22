@@ -42,7 +42,7 @@ const FormSchema = z.object({
 	const image_url = data.image_url
 	try {
 		const url = new URL(image_url)
-		return url.hostname === "cdn.pixabay.com"
+		return url.hostname === "images.unsplash.com"
 	} catch {
 		return false
 	}
@@ -145,7 +145,7 @@ export default function BlogForm() {
 						</div>
 					<Button 
                         className="flex items-center gap-1"
-                        disabled={form.formState.isValid}
+                        // disabled={form.formState.isValid}
                     >
 						<BsSave/>
 						Save
