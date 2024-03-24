@@ -3,8 +3,11 @@ import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 
 import React from 'react'
+import { readBlog } from '@/lib/actions/blog'
 
-export default function BlogTable() {
+export default async function BlogTable() {
+    const {data: blogs } = await readBlog()
+    console.log(blogs)
     return (
         <>
             <div className="rounded-md bg-graident-dark">
@@ -15,12 +18,17 @@ export default function BlogTable() {
 						<h1>Publish</h1>
 					</div>
                 </div>
-                <div className=' grid grid-cols-5 p-5'>
-                    <h1 className='col-span-2'>Bog title</h1>
-                    <Switch checked={true}/>
-                    <Switch checked={false}/>
-                    <Actions/>
-                </div>
+                {blogs?.map((blog, index) => {
+                    return (
+                        <div className=' grid grid-cols-5 p-5' key={index}>
+                            <h1 className='col-span-2'>{blog.title}</h1>
+                            <Switch checked={blog.is_premium ?? undefined}/>
+                            <Switch checked={blog.is_published ?? undefined}/>
+                            <Actions/>
+                        </div>
+                    )
+                })}
+                
             </div>
         </>
     )

@@ -10,8 +10,8 @@ export const BlogFormSchema = z.object({
 	content: z.string().min(2, {
 		message: "Content must be at least 2 characters.",
 	}),
-	is_Published: z.boolean(),
-	is_Premium: z.boolean(),
+	is_published: z.boolean(),
+	is_premium: z.boolean(),
 	
 }).refine((data) => {
 	const image_url = data.image_url

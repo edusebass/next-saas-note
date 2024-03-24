@@ -46,8 +46,8 @@ export default function BlogForm(
 			title: "",
 			content: "",
 			image_url: "",
-			is_Premium: false,
-			is_Published: true,
+			is_premium: false,
+			is_published: true,
 		},
 	})
 
@@ -86,7 +86,7 @@ export default function BlogForm(
 
 						<FormField
 							control={form.control}
-							name="is_Premium"
+							name="is_premium"
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>
@@ -105,7 +105,7 @@ export default function BlogForm(
 
 						<FormField
 							control={form.control}
-							name="is_Published"
+							name="is_published"
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>

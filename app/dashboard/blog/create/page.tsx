@@ -4,7 +4,7 @@ import BlogForm from '../../components/BlogForm'
 import { BlogFormSchemaType } from '../../schema'
 import { toast } from '@/components/ui/use-toast'
 import { createBlog } from '@/lib/actions/blog'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 export default function Page() {
 	const router = useRouter()
