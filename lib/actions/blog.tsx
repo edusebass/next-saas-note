@@ -3,6 +3,7 @@ import { BlogFormSchemaType } from "@/app/dashboard/schema"
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import { Database } from "../types/supabase"
+import { revalidatePath } from "next/cache"
 const cookieStore = cookies()
 
 const supabase = createServerClient<Database>(
@@ -34,4 +35,11 @@ export async function createBlog (data: BlogFormSchemaType) {
 
 export async function readBlog() {
   return supabase.from("blog").select("*").order("created_at", {ascending: true})
+}
+
+const DASHBOARD = "/dashboard"
+export async function deleteBlogById(blogId:string) {
+  const result = await supabase.from("blog").delete().eq("id", blogId)
+  revalidatePath(DASHBOARD)
+  return JSON.stringify(result)
 }
