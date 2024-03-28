@@ -21,7 +21,7 @@ import { cn } from '@/lib/utils'
 export default function DeleteAlert({ blogId }: { blogId:string }) {
     const [ispending, startTransition] = useTransition()
 
-    const onSubmit = async (e) => {
+    const onSubmit = async (e:any) => {
         e.preventDefault()
         startTransition(async () => {
             const result = await deleteBlogById(blogId)
