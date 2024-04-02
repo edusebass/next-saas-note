@@ -16,11 +16,18 @@ export async function createBlog (data: BlogFormSchemaType) {
       const result = await supabase.from("blog_content").
       insert({blog_id:resultBlog.data.id!, content:data.content})
 
+      revalidatePath(DASHBOARD)
       return JSON.stringify(result)     
   }
 }
 
 export async function readBlog() {
+  // read the blogs
+  const supabase = await createServerClientSupabase()
+  return supabase.from("blog").select("*").eq("is_published", true).order("created_at", {ascending: true})
+}
+
+export async function readBlogAdmin() {
   // read the blogs
   const supabase = await createServerClientSupabase()
   return supabase.from("blog").select("*").order("created_at", {ascending: true})

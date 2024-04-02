@@ -3,20 +3,20 @@ import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 
 import React from 'react'
-import { readBlog, updateBlogById } from '@/lib/actions/blog'
+import {readBlogAdmin, updateBlogById } from '@/lib/actions/blog'
 import DeleteAlert from './DeleteAlert'
 import SwitchForm from './SwitchForm'
 import { BlogFormSchemaType } from '../schema'
 import Link from 'next/link'
 
 export default async function BlogTable() {
-    const {data: blogs } = await readBlog()
+    const {data: blogs } = await readBlogAdmin()
     console.log(blogs)
     return (
         <>
-            <div className="rounded-md bg-graident-dark">
+            <div className="rounded-md bg-graident-dark border-[0.5px] overflow-y-scroll ">
 				<div className="w-[800px] md:w-full">
-					<div className="grid grid-cols-5 p-5 text-gray-500 border-b">
+					<div className="grid grid-cols-5 border-b p-5 dark:text-gray-500">
 						<h1 className=" col-span-2">Title</h1>
 						<h1>Premium</h1>
 						<h1>Publish</h1>
