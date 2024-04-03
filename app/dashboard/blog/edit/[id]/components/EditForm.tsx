@@ -1,36 +1,40 @@
-"use client"
+"use client";
+import React from "react";
 
-import BlogForm from '@/app/dashboard/components/BlogForm'
-import { BlogFormSchemaType } from '@/app/dashboard/schema'
-import { toast } from '@/components/ui/use-toast'
-import { updateBlogDetailById } from '@/lib/actions/blog'
-import { IBlogDetail } from '@/lib/types'
-import { useRouter } from 'next/navigation'
-import React from 'react'
+import { toast } from "@/components/ui/use-toast";
 
-export default function EditForm({blog}: {blog: IBlogDetail}) {
-    const router = useRouter()
-	const handleEdit = async (data: BlogFormSchemaType) => {
-		const result = await updateBlogDetailById(blog?.id!, data)
-		const { error } = JSON.parse(result)
-		console.log(error)
-		if(error?.message) {
+import BlogForm from "../../../components/BlogForm";
+import { IBlogDetial } from "@/lib/types";
+import { BlogFormSchemaType } from "../../../schema";
+import { updateBlogDetail } from "../../../../../../lib/actions/blog";
+import { PostgrestSingleResponse } from "@supabase/supabase-js";
+import { redirect, useRouter } from "next/navigation";
+
+export default function EditForm({ blog }: { blog: IBlogDetial }) {
+	const router = useRouter();
+
+	const onHandleSubmit = async (data: BlogFormSchemaType) => {
+		const result = JSON.parse(
+			await updateBlogDetail(blog?.id!, data)
+		) as PostgrestSingleResponse<null>;
+		if (result.error) {
 			toast({
-				title: "Fail to update",
+				title: "Fail to update ",
 				description: (
-					<pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
-						<code className="text-white">{error?.message}</code>
+					<pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+						<code className="text-white">
+							{result.error?.message}
+						</code>
 					</pre>
 				),
-			})
+			});
 		} else {
 			toast({
-				title: "Succesfully update"
-			})
-			router.push("/dashboard")
+				title: "Successfully update 🎉",
+			});
+			router.push("/dashboard");
 		}
-	}
-    return (
-        <BlogForm onHandleSubmit={handleEdit} blog={blog}/>
-    )
+	};
+
+	return <BlogForm onHandleSubmit={onHandleSubmit} defaultBlog={blog} />;
 }

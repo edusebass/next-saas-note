@@ -3,8 +3,8 @@ import MarkdownPreview from "@/components/markdown/MarkdownPreview";
 import { Database } from "@/lib/types/supabase";
 import { createBrowserClient } from "@supabase/ssr";
 import React, { useEffect, useState, useTransition } from "react";
-import { BlogContentLoading } from "./BlogContentLoading";
-// import Checkout from "@/components/stripe/Checkout";
+import { BlogContentLoading } from "./Skeleton";
+import Checkout from "@/components/stripe/Checkout";
 
 export default function Content({ blogId }: { blogId: string }) {
 	const [loading, setLoading] = useState(true);
@@ -28,7 +28,6 @@ export default function Content({ blogId }: { blogId: string }) {
 			.single();
 		setBlog(data);
 		setLoading(false);
-		console.log(data)
 	};
 
 	useEffect(() => {
@@ -41,10 +40,9 @@ export default function Content({ blogId }: { blogId: string }) {
 		return <BlogContentLoading />;
 	}
 
-	// if (!blog?.content) {
-	// 	return <Checkout />;
-	// }
-    console.log(blog)
+	if (!blog?.content) {
+		return <Checkout />;
+	}
 
 	return <MarkdownPreview content={blog?.content || ""} />;
 }
