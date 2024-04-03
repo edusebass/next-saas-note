@@ -1,7 +1,7 @@
 import React from "react";
 import { IBlog } from "@/lib/types";
 import Image from "next/image";
-// import Content from "./components/Content";
+import Content from "./components/Content";
 
 // export async function generateStaticParams() {
 // 	const { data: blogs } = await fetch(
@@ -68,7 +68,7 @@ export default async function page({ params }: { params: { id: string } }) {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
             </div>
-            {/* <Content blogId={params.id} /> */}
+            <Content blogId={params.id} />
         </div>
     );
 }
